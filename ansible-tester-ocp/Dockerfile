@@ -1,4 +1,5 @@
 FROM centos:7
+ENV HOME /opt/app-root
 # Install systemd -- See https://hub.docker.com/_/centos/
 RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs && yum update -y \
     && yum clean all && yum -y install epel-release && yum -y install git ansible sudo && yum clean all && \
@@ -12,11 +13,13 @@ rm -f /lib/systemd/system/basic.target.wants/*; \
 rm -f /lib/systemd/system/anaconda.target.wants/*; \
 sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers && \
 echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts && \
-useradd -u 1001 -r -g 0 -m -d /opt/app-root -s /sbin/nologin -c "Default Application User" default && \
+useradd -u 1001 -r -g 0 -m -d ${HOME} -s /sbin/nologin -c "Default Application User" default && \
 chown -R 1001:0 /opt/app-root && \
 chmod 0775 /opt/app-root
 ADD runme.sh /opt/app-root/runme.sh
-USER default
+USER 1001
+WORKDIR ${HOME}
+RUN chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
 #VOLUME [ "/sys/fs/cgroup" ]
 #EXPOSE 8080
 CMD ["/opt/app-root/runme.sh"]
