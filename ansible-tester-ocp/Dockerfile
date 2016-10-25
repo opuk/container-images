@@ -15,8 +15,9 @@ echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts && \
 useradd -u 1001 -r -g 0 -m -d /opt/app-root -s /sbin/nologin -c "Default Application User" default && \
 chown -R 1001:0 /opt/app-root && \
 chmod 0755 /opt/app-root
-VOLUME [ "/sys/fs/cgroup" ]
+ADD runme.sh /opt/app-root/runme.sh
+#VOLUME [ "/sys/fs/cgroup" ]
 #EXPOSE 8080
-CMD ["/usr/sbin/init"]
+CMD ["/opt/app-root/runme.sh"]
 
 
