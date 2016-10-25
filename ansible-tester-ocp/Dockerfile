@@ -1,8 +1,8 @@
 FROM centos:7
 ENV HOME /opt/app-root
 # Install systemd -- See https://hub.docker.com/_/centos/
-RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs nss_wrapper gettext && yum update -y \
-    && yum clean all && yum -y install epel-release && yum -y install git ansible sudo && yum clean all && \
+RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs && yum update -y \
+    && yum clean all && yum -y install epel-release && yum -y install git ansible sudo nss_wrapper gettext && yum clean all && \
 (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
 rm -f /lib/systemd/system/multi-user.target.wants/*; \
 rm -f /etc/systemd/system/*.wants/*; \
