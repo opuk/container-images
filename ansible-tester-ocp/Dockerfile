@@ -16,7 +16,6 @@ useradd -u 1001 -r -g 0 -m -d /opt/app-root -s /sbin/nologin -c "Default Applica
 chown -R 1001:0 /opt/app-root && \
 chmod 0755 /opt/app-root
 ADD runme.sh /opt/app-root/runme.sh
-USER 1001
 #VOLUME [ "/sys/fs/cgroup" ]
 #EXPOSE 8080
 CMD ["/opt/app-root/runme.sh"]
