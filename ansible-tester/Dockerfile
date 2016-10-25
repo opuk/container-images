@@ -10,8 +10,8 @@ rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
 rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
 rm -f /lib/systemd/system/basic.target.wants/*; \
 rm -f /lib/systemd/system/anaconda.target.wants/*; \
-sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers \
-echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts \
+sed -i -e 's/^\(Defaults\s*requiretty\)/#--- \1/'  /etc/sudoers && \
+echo -e '[local]\nlocalhost ansible_connection=local' > /etc/ansible/hosts && \
 useradd -u 1001 -r -g 0 -m -d /opt/app-root -s /sbin/nologin -c "Default Application User" default && \
 chown -R 1001:0 /opt/app-root && \
 chmod 0755 /opt/app-root
