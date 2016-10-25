@@ -1,4 +1,6 @@
 #!/bin/bash
+echo -n "Running as: "
+whoami
 echo "GIT_URL: $GIT_URL" 
 echo "PLAYBOOK: $PLAYBOOK" 
 cd /opt/app-root
